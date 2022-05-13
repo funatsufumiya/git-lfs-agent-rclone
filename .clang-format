@@ -1,0 +1,10 @@
+BasedOnStyle: LLVM
+IndentWidth: 8
+UseTab: Always
+BreakBeforeBraces: Linux
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+IndentCaseLabels: false
+ColumnLimit: 120
+BreakBeforeBinaryOperators: NonAssignment
+IndentPPDirectives: AfterHash

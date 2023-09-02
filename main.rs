@@ -1,10 +1,12 @@
 use std::env;
 use std::io::{self, BufRead};
+use std::io::Write;
 use std::process::Command;
-use std::fs::File;
-use std::io::prelude::*;
 
 use serde::{Deserialize, Serialize};
+
+use simple_home_dir::expand_tilde;
+use file_rotate::{FileRotate, ContentLimit, suffix::AppendCount, compression::Compression};
 
 // event json examples
 // init
@@ -116,19 +118,26 @@ fn respond(obj: Response) {
 }
 
 fn get_log_file_path() -> String {
-    let script_dir = env::current_dir().unwrap();
-    let log_dir = script_dir.join("logs");
+    let home_dir = expand_tilde("~/.git-lfs-agent-rclone").unwrap();
+    let log_dir = home_dir.join("logs");
     // create log dir if not exist
     if !log_dir.exists() {
-        std::fs::create_dir(log_dir.clone()).unwrap();
+        std::fs::create_dir_all(log_dir.clone()).unwrap();
     }
-    let log_file_path = log_dir.join("git-lfs-rs.error.log");
+    let log_file_path = log_dir.join("errors.log");
     log_file_path.to_str().unwrap().to_string()
 }
 
-fn get_log_file() -> File {
+fn get_log_file() -> FileRotate<AppendCount> {
     let log_file_path = get_log_file_path();
-    let log_file = File::create(log_file_path).unwrap();
+    let log_file = FileRotate::new(
+        log_file_path.clone(),
+        AppendCount::new(3),
+        ContentLimit::Lines(1000),
+        Compression::None,
+        #[cfg(unix)]
+        None,
+    );
     log_file
 }
 
@@ -195,7 +204,7 @@ fn main() {
 
                 // error log
                 let mut log_file = get_log_file();
-                log_file.write_all(format!("upload failed: {:?} ( request json: {:?})", cmd, ev).as_bytes()).unwrap()
+                writeln!(log_file, "upload failed: {:?} ( request json: {:?})", cmd, ev).unwrap();
             }
         } else if event == "download" {
             let ev = match obj {
@@ -233,7 +242,7 @@ fn main() {
 
                 // error log
                 let mut log_file = get_log_file();
-                log_file.write_all(format!("download failed: {:?} ( request json: {:?})", cmd, ev).as_bytes()).unwrap();
+                writeln!(log_file, "download failed: {:?} ( request json: {:?})", cmd, ev).unwrap();
             }
         }
     }

@@ -33,11 +33,11 @@ $git add --all
 $git commit --message 'commit message'
 # Add $DEST_GIT as a remote to the source repository
 $git remote add origin $DEST_GIT
-# Configure the source repository to use git-lfs-agent-scp to transfer files
-$git config lfs.standalonetransferagent scp
+# Configure the source repository to use git-lfs-agent-rclone to transfer files
+$git config lfs.standalonetransferagent rclone
 $git config lfs.concurrenttransfers 1
-$git config lfs.customtransfer.scp.path $mydir/git-lfs-agent-scp
-$git config lfs.customtransfer.scp.args $DEST_GIT_LFS_FILES
+$git config lfs.customtransfer.rclone.path $mydir/git-lfs-agent-rclone
+$git config lfs.customtransfer.rclone.args $DEST_GIT_LFS_FILES
 
 #
 # Test uploading.

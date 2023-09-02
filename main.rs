@@ -144,8 +144,8 @@ fn get_event (ev: &Event) -> String {
 fn main() {
     // get args
     let args: Vec<String> = env::args().collect();
-    let scp_args = &args[1..];
-    let scp_arg_str = scp_args.join(" ");
+    let rclone_args = &args[1..];
+    let rclone_arg_str = rclone_args.join(" ");
 
     // read stdin
     let stdin = io::stdin();
@@ -167,12 +167,13 @@ fn main() {
                 Event::Upload(ref e) => e,
                 _ => panic!("invalid event"),
             };
-            // call scp to upload file
+            // call rclone to upload file
             let src_path = &ev.path;
-            // let dst_path = Path::new(&scp_arg_str).join(&ev.oid);
+            // let dst_path = Path::new(&rclone_arg_str).join(&ev.oid);
             let sep = "/";
-            let dst_path = format!("{}{}{}", &scp_arg_str, sep, &ev.oid);
-            let cmd = Command::new("scp")
+            let dst_path = format!("{}{}{}", &rclone_arg_str, sep, &ev.oid);
+            let cmd = Command::new("rclone")
+                .arg("copy")
                 .arg(src_path)
                 .arg(dst_path)
                 .output()
@@ -201,14 +202,15 @@ fn main() {
                 Event::Download(e) => e,
                 _ => panic!("invalid event"),
             };
-            // call scp to download file
+            // call rclone to download file
             let (_tmp_file, tmp_path_buf) = tempfile::NamedTempFile::new().unwrap().keep().unwrap();
             let tmp_path = tmp_path_buf.to_str().unwrap();
 
             let sep = "/";
-            // let src_path = Path::new(&scp_arg_str).join(&ev.oid);
-            let src_path = format!("{}{}{}", &scp_arg_str, sep, &ev.oid);
-            let cmd = Command::new("scp")
+            // let src_path = Path::new(&rclone_arg_str).join(&ev.oid);
+            let src_path = format!("{}{}{}", &rclone_arg_str, sep, &ev.oid);
+            let cmd = Command::new("rclone")
+                .arg("copy")
                 .arg(src_path)
                 .arg(tmp_path)
                 .output()

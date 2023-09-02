@@ -16,9 +16,9 @@ touch	$SRC/0000000000000000000000000000000000000000000000000000000000000000 \
 	$DEST/0000000000000000000000000000000000000000000000000000000000000006 \
 	$DEST/0000000000000000000000000000000000000000000000000000000000000007 \
 
-rm -f /tmp/git-lfs-agent-scp-*
+rm -f /tmp/git-lfs-agent-rclone-*
 
-cat <<EOF | ./git-lfs-agent-scp 2>$output 1>&2 $DEST
+cat <<EOF | ./git-lfs-agent-rclone 2>$output 1>&2 $DEST
 {"event":"init"}
 {"event":"upload","oid":"0000000000000000000000000000000000000000000000000000000000000000","path":"$SRC/0000000000000000000000000000000000000000000000000000000000000000"}
 {"event":"download","oid":"0000000000000000000000000000000000000000000000000000000000000004"}
@@ -27,7 +27,7 @@ cat <<EOF | ./git-lfs-agent-scp 2>$output 1>&2 $DEST
 {"event":"terminate"}
 EOF
 
-cat <<EOF | ./git-lfs-agent-scp 2>$output 1>&2 $DEST/
+cat <<EOF | ./git-lfs-agent-rclone 2>$output 1>&2 $DEST/
 {"event":"init"}
 {"event":"upload","oid":"0000000000000000000000000000000000000000000000000000000000000002","path":"$SRC/0000000000000000000000000000000000000000000000000000000000000002"}
 {"event":"download","oid":"0000000000000000000000000000000000000000000000000000000000000006"}
@@ -37,8 +37,8 @@ cat <<EOF | ./git-lfs-agent-scp 2>$output 1>&2 $DEST/
 EOF
 
 # Move the tmp files (git-lfs takes care of this in practice)
-for file in /tmp/git-lfs-agent-scp-*; do
-  mv $file $SRC/${file#/tmp/git-lfs-agent-scp-}
+for file in /tmp/git-lfs-agent-rclone-*; do
+  mv $file $SRC/${file#/tmp/git-lfs-agent-rclone-}
 done
 
 diff $SRC $DEST

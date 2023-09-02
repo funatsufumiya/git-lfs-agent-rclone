@@ -1,4 +1,4 @@
-git-lfs-agent-scp
+git-lfs-agent-rclone
 tmp/
 logs/
 *.log

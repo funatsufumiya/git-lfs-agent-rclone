@@ -1,12 +1,19 @@
 PREFIX?=/usr/local
 # CFLAGS=$(shell pkg-config --cflags libbsd-overlay)
 # LDFLAGS=$(shell pkg-config --libs libbsd-overlay)
-CC=gcc
+CC=zig cc
+ifeq  ($(shell uname),Darwin)
+STD=-std=c99
+MARCH=
+else
+STD=
+MARCH=-march=native
+endif
 
 all: git-lfs-agent-scp
 
 git-lfs-agent-scp: main.c
-	$(CC) $(CFLAGS) -pedantic-errors -Wall -Wextra -Wpedantic -march=native -Os $< -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(STD) -pedantic-errors -Wall -Wextra -Wpedantic $(MARCH) -Os $< -o $@ $(LDFLAGS)
 
 install: git-lfs-agent-scp
 	install -m 755 git-lfs-agent-scp $(PREFIX)/bin

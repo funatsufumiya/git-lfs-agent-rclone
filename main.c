@@ -42,6 +42,9 @@ static jsmntok_t tokens[128];
 #define OID_LENGTH 64
 #define LAST_JSON_TOKEN (-1)
 
+// if windows or linux, define strlcpy and strlcat
+#if defined(_WIN32) || defined(_WIN64) || defined(__linux__)
+
 size_t strlcpy(char *dst, const char *src, size_t n) {
     char *p = dst;
 
@@ -71,6 +74,8 @@ size_t strlcat(char *dst, const char *src, size_t n) {
     }
     return (p - dst) + strlen(src);
 }
+
+#endif
 
 /**
  * Write a message to stderr.

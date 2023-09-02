@@ -13,11 +13,11 @@ $ git config lfs.standalonetransferagent scp <1>
 $ git config lfs.customtransfer.scp.path git-lfs-agent-scp <2>
 $ git config lfs.customtransfer.scp.args $DESTINATION <3>
 ```
-<1> tell `git-lfs` to use the transfer agent named "scp"
-<2> tell `git-lfs` what the name of the program is of the transfer agent
-<3> `$DESTINATION` is the destination to which `scp` will copy files tracked by `git-lfs` when running `$ git pull` and the place it will store files when running `$ git push`
+1. tell `git-lfs` to use the transfer agent named "scp"
+2. tell `git-lfs` what the name of the program is of the transfer agent
+3. `$DESTINATION` is the destination to which `scp` will copy files tracked by `git-lfs` when running `$ git pull` and the place it will store files when running `$ git push`
 
-NOTE: `$DESTINATION` can be set to anything `scp` understands.
+- NOTE: `$DESTINATION` can be set to anything `scp` understands.
       As an example, `server.example.com:/home/git/my-lfs-files` ships files to a remote server over `ssh`.
 
 ## Install

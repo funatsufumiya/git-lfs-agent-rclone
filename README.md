@@ -1,6 +1,6 @@
 # `git-lfs-agent-scp`
 
-A custom transfer agent for https://git-lfs.github.com/[`git-lfs`] that uses https://www.openssh.com/[`scp`] to transfer files.
+A custom transfer agent for [`git-lfs`](https://git-lfs.github.com/) that uses [`scp`](https://www.openssh.com/) to transfer files.
 This transfer agent makes it possible to use `git-lfs` in situations where the remote only speaks `ssh`.
 This is useful if you do not want to install a `git-lfs` server.
 

@@ -2,3 +2,8 @@ git-lfs-agent-scp
 tmp/
 logs/
 *.log
+
+
+# Added by cargo
+
+/target

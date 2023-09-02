@@ -266,7 +266,7 @@ fn main() {
             // call scp to upload file
             let src_path = &ev.path;
             // let dst_path = Path::new(&scp_arg_str).join(&ev.oid);
-            let sep = std::path::MAIN_SEPARATOR;
+            let sep = "/";
             let dst_path = format!("{}{}{}", &scp_arg_str, sep, &ev.oid);
             let cmd = Command::new("scp")
                 .arg(src_path)
@@ -301,7 +301,7 @@ fn main() {
             let (_tmp_file, tmp_path_buf) = tempfile::NamedTempFile::new().unwrap().keep().unwrap();
             let tmp_path = tmp_path_buf.to_str().unwrap();
 
-            let sep = std::path::MAIN_SEPARATOR;
+            let sep = "/";
             // let src_path = Path::new(&scp_arg_str).join(&ev.oid);
             let src_path = format!("{}{}{}", &scp_arg_str, sep, &ev.oid);
             let cmd = Command::new("scp")

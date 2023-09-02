@@ -45,7 +45,9 @@ def main():
 
             # call scp to upload file
             src_path = obj["path"]
-            dst_path = os.path.join(scp_arg_str, obj["oid"])
+            sep = "/"
+            # dst_path = os.path.join(scp_arg_str, obj["oid"])
+            dst_path = scp_arg_str + sep + obj["oid"]
             cmd = f"scp {src_path} {dst_path}"
             # logging.debug('cmd: ' + cmd)
 
@@ -70,7 +72,9 @@ def main():
             # call scp to download file
             tmp_file = tempfile.NamedTemporaryFile(dir=tmp_dir, delete=False)
 
-            src_path = os.path.join(scp_arg_str, obj["oid"])
+            # src_path = os.path.join(scp_arg_str, obj["oid"])
+            sep = "/"
+            src_path = scp_arg_str + sep + obj["oid"]
             cmd = f"scp {src_path} {tmp_file.name}"
             # logging.debug('cmd: ' + cmd)
 

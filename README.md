@@ -21,6 +21,8 @@ $ git config lfs.customtransfer.rclone.args $DESTINATION <3>
 
 ## Install
 
+- NOTE: check [Releases page](https://github.com/funatsufumiya/git-lfs-agent-rclone/releases) for pre-built binaries (unzip it and move to `/usr/local/bin` or `C:¥Windows¥System32`).
+
 Clone the source and run:
 
 ```sh

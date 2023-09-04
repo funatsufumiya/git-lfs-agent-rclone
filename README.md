@@ -16,15 +16,18 @@ $ git config lfs.customtransfer.rclone.args $DESTINATION <3>
 2. tell `git-lfs` what the name of the program is of the transfer agent
 3. `$DESTINATION` is the destination to which `rclone` will copy files tracked by `git-lfs` when running `$ git pull` and the place it will store files when running `$ git push`
 
-- NOTE: `$DESTINATION` can be set to anything `rclone` understands.
+- **NOTE**: `$DESTINATION` can be set to anything `rclone` understands.
       As an example, `source:/home/git/my-lfs-files` ships files to a remote server over `rclone`.
 
 ## Install
 
-- NOTE: check [Releases page](https://github.com/funatsufumiya/git-lfs-agent-rclone/releases) for pre-built binaries (unzip it and move to `/usr/local/bin` or `C:¥Windows¥System32`).
+Download pre-built executable binary from [Releases page](https://github.com/funatsufumiya/git-lfs-agent-rclone/releases) (unzip it and move to `/usr/local/bin` or `C:¥Windows¥System32`).
+
+## Build
 
 Clone the source and run:
 
 ```sh
-$ cargo install --path .
+# cargo build --release # just build
+$ cargo install --path . # build and install
 ```

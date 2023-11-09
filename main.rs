@@ -153,6 +153,23 @@ fn get_event (ev: &Event) -> String {
 fn main() {
     // get args
     let args: Vec<String> = env::args().collect();
+
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+    // show help version
+    if args.len() == 2 && (args[1] == "-h" || args[1] == "--help") {
+        println!("git-lfs-agent-rclone v{}", VERSION);
+        println!("Usage: git-lfs-agent-rclone <scp args>");
+        // exit
+        std::process::exit(0);
+
+    // show version
+    } else if args.len() == 2 && (args[1] == "-v" || args[1] == "--version") {
+        println!("git-lfs-agent-rclone v{}", VERSION);
+        // exit
+        std::process::exit(0);
+    }
+
     let rclone_args = &args[1..];
     let rclone_arg_str = rclone_args.join(" ");
 

@@ -15,3 +15,13 @@ tempfile = "3.8.0"
 [[bin]]
 name = "git-lfs-agent-rclone"
 path = "main.rs"
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-Ctarget-feature=+crt-static"]
+
+[target.i686-pc-windows-msvc]
+rustflags = ["-Ctarget-feature=+crt-static"]
+
+[target.i586-pc-windows-msvc]
+rustflags = ["-Ctarget-feature=+crt-static"]
+

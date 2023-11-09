@@ -34,15 +34,31 @@ $ cargo install --path . # build and install
 
 ## Cross build
 
+- from mac m1, build mac x64
+
+```bash
+$ rustup target add x86_64-apple-darwin
+$ cargo build --release --target=x86_64-apple-darwin
+
+# aarch64
+# rustup target add aarch64-apple-darwin
+# cargo build --release --target=aarch64-apple-darwin
+```
+
 - from mac, build linux
 
 see https://github.com/rust-lang/rust/issues/34282#issuecomment-796182029
 
 ```bash
-$ rustup target add x86_64-unknown-linux-gnu
 $ brew tap SergioBenitez/osxct
 $ brew install x86_64-unknown-linux-gnu
+$ brew tap messense/macos-cross-toolchains
+$ brew install aarch64-unknown-linux-gnu
+$ rustup target add x86_64-unknown-linux-gnu
+$ rustup target add aarch64-unknown-linux-gnu
 $ CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=x86_64-unknown-linux-gnu-gcc cargo build --release --target=x86_64-unknown-linux-gnu
+
+$ CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-unknown-linux-gnu-gcc cargo build --release --target=aarch64-unknown-linux-gnu
 ```
 
 - from mac, build windows

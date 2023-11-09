@@ -27,7 +27,28 @@ Download pre-built executable binary from [Releases page](https://github.com/fun
 
 Clone the source and run:
 
-```sh
+```bash
 $ cargo build --release # just build
 $ cargo install --path . # build and install
+```
+
+## Cross build
+
+- from mac, build linux
+
+see https://github.com/rust-lang/rust/issues/34282#issuecomment-796182029
+
+```bash
+$ rustup target add x86_64-unknown-linux-gnu
+$ brew tap SergioBenitez/osxct
+$ brew install x86_64-unknown-linux-gnu
+$ CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=x86_64-unknown-linux-gnu-gcc cargo build --release --target=x86_64-unknown-linux-gnu
+```
+
+- from mac, build windows
+
+```bash
+$ brew install mingw-w64
+$ rustup target add x86_64-pc-windows-gnu
+$ CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=x86_64-w64-mingw32-gcc cargo build --release --target=x86_64-pc-windows-gnu
 ```

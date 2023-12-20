@@ -229,8 +229,8 @@ fn main() {
                 _ => panic!("invalid event"),
             };
             // call rclone to download file
-            let (_tmp_file, tmp_path_buf) = tempfile::NamedTempFile::new().unwrap().keep().unwrap();
-            let tmp_path = tmp_path_buf.to_str().unwrap();
+            let _tmp_dir = tempfile::tempdir().unwrap();
+            let tmp_path = _tmp_dir.into_path();
 
             let sep = "/";
             // let src_path = Path::new(&rclone_arg_str).join(&ev.oid);
@@ -238,14 +238,14 @@ fn main() {
             let cmd = Command::new("rclone")
                 .arg("copy")
                 .arg(src_path)
-                .arg(tmp_path)
+                .arg(tmp_path.to_str().unwrap().to_string())
                 .output()
                 .expect("failed to execute process");
             if cmd.status.success() {
                 respond(Response::Download(DownloadResponse {
                     event: "complete".to_string(),
                     oid: ev.oid.clone(),
-                    path: tmp_path.to_string(),
+                    path: tmp_path.join(&ev.oid).to_str().unwrap().to_string(),
                 }));
             } else {
                 respond(Response::Error(ErrorResponse {

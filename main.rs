@@ -152,7 +152,7 @@ fn get_event (ev: &Event) -> String {
 
 fn main() {
     // get args
-    let mut args: Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
 
     const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -168,50 +168,6 @@ fn main() {
         println!("git-lfs-agent-rclone v{}", VERSION);
         // exit
         std::process::exit(0);
-    }
-
-    // set environment variable
-    if let Some(index) = args.iter().position(|elem| elem == "--tmpdir") {
-        args.remove(index);
-        if args.len() <= index {
-            respond(Response::Error(ErrorResponse {
-                event: "initialize".to_string(),
-                oid: "-1".to_string(),
-                error: Error {
-                    code: 1,
-                    message: "`--tmpdir` needs a temporary directory path".to_string(),
-                },
-            }));
-            std::process::exit(1);
-        }
-        match std::fs::metadata(&args[index]) {
-            Ok(path) => {
-                if !path.is_dir() {
-                    respond(Response::Error(ErrorResponse {
-                        event: "initialize".to_string(),
-                        oid: "-1".to_string(),
-                        error: Error {
-                            code: 1,
-                            message: "given temporary directory path is invalid.".to_string(),
-                        },
-                    }));
-                    std::process::exit(1);
-                }
-            }
-            Err(mes) => {
-                respond(Response::Error(ErrorResponse {
-                    event: "initialize".to_string(),
-                    oid: "-1".to_string(),
-                    error: Error {
-                        code: 1,
-                        message: mes.to_string(),
-                    },
-                }));
-                std::process::exit(1);
-            }
-        }
-        std::env::set_var("TMPDIR", &args[index]);
-        args.remove(index);
     }
 
     let rclone_args = &args[1..];

@@ -68,3 +68,7 @@ $ brew install mingw-w64
 $ rustup target add x86_64-pc-windows-gnu
 $ CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=x86_64-w64-mingw32-gcc cargo build --release --target=x86_64-pc-windows-gnu
 ```
+
+# Acknowledgements
+
+This project was created with fork from https://github.com/funatsufumiya/git-lfs-agent-scp, which forked from https://github.com/tdons/git-lfs-agent-scp

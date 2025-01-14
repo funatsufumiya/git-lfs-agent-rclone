@@ -1,5 +1,12 @@
 # `git-lfs-agent-rclone`
 
+`============`
+
+***WARNING: This branch is currently stopping development***.<br>
+You can still use this, but I recommend other forks such as [yaito6502's](https://github.com/yaito6502/git-lfs-agent-rclone)
+
+`============`
+
 A custom transfer agent for [`git-lfs`](https://git-lfs.github.com/) that uses [`rclone`](https://www.openssh.com/) to transfer files.
 This is useful if you do not want to install a `git-lfs` server.
 

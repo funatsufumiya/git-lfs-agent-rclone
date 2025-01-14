@@ -3,7 +3,7 @@
 `============`
 
 ***WARNING: This branch is currently stopping development***.<br>
-You can still use this, but I recommend other forks such as [yaito6502's](https://github.com/yaito6502/git-lfs-agent-rclone)
+You can still use this, but I recommend other forks such as [yaito6502's](https://github.com/yaito6502/git-lfs-agent-rclone) (Please check other forks by [Network Graph](https://github.com/funatsufumiya/git-lfs-agent-rclone/network))
 
 `============`
 
